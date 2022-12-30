@@ -34,6 +34,7 @@ const run = async () => {
         console.log(`DB Connect Successfull`.white.bgRed);
         const orderCollection = client.db("AvailBox").collection("Orders");
         const serviceCollection = client.db("AvailBox").collection("Services");
+        const applyCollection = client.db("AvailBox").collection("Applications");
 
         // Initialize app
         app.get('/', async (req, res) => {
@@ -213,6 +214,11 @@ const run = async () => {
             const query = {};
             const services = serviceCollection.find(query);
             const result = await services.toArray();
+            res.send(result);
+        })
+
+        app.post('/apply', async (req, res) => {
+            const result = await applyCollection.insertOne(req.body);
             res.send(result);
         })
 
