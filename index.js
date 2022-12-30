@@ -30,7 +30,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 const run = async () => {
     try {
 
-       await client.connect();
+        client.connect();
         console.log(`DB Connect Successfull`.white.bgRed);
         const orderCollection = client.db("AvailBox").collection("Orders");
         const serviceCollection = client.db("AvailBox").collection("Services");
@@ -96,7 +96,7 @@ const run = async () => {
                 };
 
                 // Insert order info
-                const result = await orderCollection.insertOne(productInfo);
+                const result =  orderCollection.insertOne(productInfo);
 
                 const sslcommerz = new SSLCommerzPayment(process.env.STORE_ID, process.env.STORE_PASS, false) //true for live default false for sandbox
                 sslcommerz.init(productInfo)
@@ -132,7 +132,7 @@ const run = async () => {
         app.post("/ssl-payment-success", async (req, res) => {
 
             try {
-                const result = await orderCollection.updateOne({ tran_id: req.body.tran_id }, {
+                const result =  orderCollection.updateOne({ tran_id: req.body.tran_id }, {
                     $set: {
                         val_id: req.body.val_id
                     }
@@ -147,7 +147,7 @@ const run = async () => {
 
         app.post("/ssl-payment-fail", async (req, res) => {
             try {
-                const result = await orderCollection.deleteOne({ tran_id: req.body.tran_id })
+                const result =  orderCollection.deleteOne({ tran_id: req.body.tran_id })
 
                 res.redirect(`${process.env.ROOT_FE}`)
             } catch (error) {
@@ -157,7 +157,7 @@ const run = async () => {
 
         app.post("/ssl-payment-cancel", async (req, res) => {
             try {
-                const result = await orderCollection.deleteOne({ tran_id: req.body.tran_id })
+                const result =  orderCollection.deleteOne({ tran_id: req.body.tran_id })
 
                 res.redirect(`${process.env.ROOT_FE}`)
             } catch (error) {
@@ -176,12 +176,12 @@ const run = async () => {
 
         app.post('/validate', async (req, res) => {
             try {
-                const result = await orderCollection.findOne({
+                const result =  orderCollection.findOne({
                     tran_id: req.body.tran_id
                 })
 
                 if (result.val_id === req.body.val_id) {
-                    const update = await orderCollection.updateOne({ tran_id: req.body.tran_id }, {
+                    const update =  orderCollection.updateOne({ tran_id: req.body.tran_id }, {
                         $set: {
                             paymentStatus: 'paymentComplete'
                         }
@@ -202,7 +202,7 @@ const run = async () => {
         app.get('/orders/:tran_id', async (req, res) => {
             try {
                 const id = req.params.tran_id;
-                const result = await orderCollection.findOne({ tran_id: id })
+                const result =  orderCollection.findOne({ tran_id: id })
                 res.json(result)
             } catch (error) {
                 console.log(error);
@@ -212,7 +212,7 @@ const run = async () => {
         app.get('/services', async (req, res) => {
             const query = {};
             const services = serviceCollection.find(query);
-            const result = await services.toArray();
+            const result =  services.toArray();
             res.send(result);
         })
 
