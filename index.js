@@ -14,23 +14,24 @@ const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+// app.use(bodyParser.urlencoded({ extended: true }));
+// // parse application/x-www-form-urlencoded
+// app.use(bodyParser.urlencoded({ extended: false }))
 
-// parse application/json
-app.use(bodyParser.json());
+// // parse application/json
+// app.use(bodyParser.json());
 
 
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.xylkmyu.mongodb.net/?retryWrites=true&w=majority`;
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@projectalpha.vfeoidx.mongodb.net/?retryWrites=true&w=majority`;
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 const run = async () => {
     try {
 
         client.connect();
+        console.log(`DB Connect Successfull`.white.bgRed);
         const helpCollection = client.db("AvailBox").collection("Orders");
 
         // Initialize app
@@ -60,11 +61,6 @@ const run = async () => {
 
 run().catch(console.dir);
 
-
-
-app.get('/', (req, res) => {
-    res.send("Project Alpha Server");
-});
 
 app.listen(port, () => {
     console.log("Listen to Port", port);
