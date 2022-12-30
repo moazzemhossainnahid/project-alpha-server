@@ -138,7 +138,7 @@ const run = async () => {
                     }
                 })
 
-                res.redirect(`${process.env.ROOT_FE}/ssl-payment-success/${req.body.tran_id}`)
+                res.redirect(`https://availbox.netlify.app/ssl-payment-success/${req.body.tran_id}`)
             } catch (error) {
                 console.log(error);
             }
@@ -149,7 +149,7 @@ const run = async () => {
             try {
                 const result = await orderCollection.deleteOne({ tran_id: req.body.tran_id })
 
-                res.redirect(`${process.env.ROOT_FE}`)
+                res.redirect(`https://availbox.netlify.app`)
             } catch (error) {
                 console.log(error);
             }
@@ -159,7 +159,7 @@ const run = async () => {
             try {
                 const result = await orderCollection.deleteOne({ tran_id: req.body.tran_id })
 
-                res.redirect(`${process.env.ROOT_FE}`)
+                res.redirect(`https://availbox.netlify.app`)
             } catch (error) {
                 console.log(error);
             }
