@@ -14,12 +14,12 @@ const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
-// // parse application/x-www-form-urlencoded
-// app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }));
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
 
-// // parse application/json
-// app.use(bodyParser.json());
+// parse application/json
+app.use(bodyParser.json());
 
 
 
@@ -65,10 +65,10 @@ const run = async () => {
                     cancel_url: `${process.env.ROOT_BE}/ssl-payment-cancel`,
                     paymentStatus: 'pending',
                     shipping_method: 'Courier',
-                    product_name: req.body.item_name,
-                    product_category: req.body.item_category,
-                    product_profile: req.body.item_desc,
-                    product_image: req.body.item_image,
+                    product_name: req.body.service_name,
+                    product_category: "Services",
+                    product_profile: req.body.service_desc,
+                    product_image: req.body.service_img,
                     cus_name: req.body.cus_name,
                     cus_email: req.body.cus_email,
                     cus_add1: 'Dhaka',
