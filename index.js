@@ -30,9 +30,10 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 const run = async () => {
     try {
 
-        client.connect();
+       await client.connect();
         console.log(`DB Connect Successfull`.white.bgRed);
-        const helpCollection = client.db("AvailBox").collection("Orders");
+        const orderCollection = client.db("AvailBox").collection("Orders");
+        const serviceCollection = client.db("AvailBox").collection("Services");
 
         // Initialize app
         app.get('/', async (req, res) => {
@@ -206,6 +207,13 @@ const run = async () => {
             } catch (error) {
                 console.log(error);
             }
+        })
+
+        app.get('/services', async (req, res) => {
+            const query = {};
+            const services = serviceCollection.find(query);
+            const result = await services.toArray();
+            res.send(result);
         })
 
 
