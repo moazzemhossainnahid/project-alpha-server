@@ -217,6 +217,7 @@ const run = async () => {
             res.send(result);
         })
 
+// post application
         app.post('/apply', async (req, res) => {
             const result = await applyCollection.insertOne(req.body);
             res.send(result);
