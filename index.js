@@ -35,6 +35,7 @@ const run = async () => {
         const orderCollection = client.db("AvailBox").collection("Orders");
         const serviceCollection = client.db("AvailBox").collection("Services");
         const applyCollection = client.db("AvailBox").collection("Applications");
+        const hiresCollection = client.db("AvailBox").collection("Hires");
 
         // Initialize app
         app.get('/', async (req, res) => {
@@ -220,6 +221,12 @@ const run = async () => {
 // post application
         app.post('/apply', async (req, res) => {
             const result = await applyCollection.insertOne(req.body);
+            res.send(result);
+        })
+
+// post hiring
+        app.post('/hire', async (req, res) => {
+            const result = await hiresCollection.insertOne(req.body);
             res.send(result);
         })
 
